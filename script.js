@@ -11,8 +11,8 @@ document.getElementById("request-form").addEventListener("submit", function (eve
     "الجهاز: " + data.get("device"),
     "التفاصيل: " + data.get("details")
   ].join("\n");
-  const choice = prompt("اختر رقم واتساب لإرسال الطلب:\\n1 - 249928477105\\n2 - 249990053814", "1");
-  const index = choice === "2" ? 1 : 0;
+  const WHATSAPP_NUMBERS = ["249928477105", "249990053814"];
+document.getElementById("year").textContent = new Date().getFullYear();
   const number = WHATSAPP_NUMBERS[index];
   window.open("https://wa.me/" + number + "?text=" + encodeURIComponent(message), "_blank", "noopener");
 });

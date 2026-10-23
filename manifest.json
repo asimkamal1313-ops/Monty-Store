@@ -1,0 +1,17 @@
+{
+  "name": "MONTY STORE",
+  "short_name": "MONTY",
+  "description": "MONTY STORE - iPhone Services",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#111111",
+  "icons": [
+    {
+      "src": "./monty-logo.jpg",
+      "sizes": "any",
+      "type": "image/jpeg"
+    }
+  ]
+}

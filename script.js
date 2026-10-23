@@ -1,3 +1,4 @@
+
 const WHATSAPP_NUMBERS = [
   "249928477105",
   "249990053814",
@@ -26,17 +27,24 @@ if (form) {
     ].join("\n");
 
     const choice = prompt(
-      "اختر رقم واتساب لاستقبال الطلب:\n" +
+      "مرحباً بك في MONTY STORE\n\n" +
+      "اختر رقم واتساب للتواصل:\n" +
       "1 - +249 928 477 105\n" +
-      "2 - +249 990 053 814",
+      "2 - +249 990 053 814\n" +
+      "3 - +249 960 518 234 (احتياطي)\n\n" +
+      "اكتب 1 أو 2 أو 3:",
       "1"
     );
 
-    if (choice !== "1" && choice !== "2") {
+    if (!["1", "2", "3"].includes((choice || "").trim())) {
+      if (choice !== null) {
+        alert("اختيار غير صحيح. اختر 1 أو 2 أو 3.");
+      }
       return;
     }
 
-    const number = WHATSAPP_NUMBERS[Number(choice) - 1];
+    const number = WHATSAPP_NUMBERS[Number(choice.trim()) - 1];
+
     const url =
       "https://wa.me/" + number +
       "?text=" + encodeURIComponent(message);

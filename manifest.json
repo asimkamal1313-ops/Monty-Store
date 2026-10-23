@@ -1,3 +1,4 @@
+
 {
   "name": "MONTY STORE",
   "short_name": "MONTY",
@@ -11,7 +12,7 @@
     {
       "src": "./monty-logo.jpg",
       "sizes": "1254x1254",
-"type": "image/jpeg"
+      "type": "image/jpeg"
     }
   ]
 }

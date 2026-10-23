@@ -1,7 +1,7 @@
-
 const WHATSAPP_NUMBERS = [
   "249928477105",
-  "249990053814"
+  "249990053814",
+  "249960518234"
 ];
 
 const year = document.getElementById("year");

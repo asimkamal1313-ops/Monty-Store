@@ -1073,23 +1073,26 @@ footer {
     transition: none;
   }
 
-/* تحسين زر واتساب على الجوال */
+/* إصلاح زر واتساب على الجوال */
 @media (max-width: 768px) {
   .floating-whatsapp {
-    transform: scale(0.65);
-    transform-origin: bottom left;
-    bottom: 10px;
-    left: -10px;
+    width: auto;
+    max-width: 180px;
+    padding: 12px 18px;
+    transform: none;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 18px;
+    left: 12px;
     right: auto;
     z-index: 1000;
   }
 
-  .reviews-section {
-    padding-top: 40px;
-    padding-bottom: 40px;
+  .floating-whatsapp span {
+    font-size: 16px;
   }
 
-  .review-card {
-    padding: 20px 16px;
+  .floating-whatsapp strong {
+    font-size: 22px;
   }
 }

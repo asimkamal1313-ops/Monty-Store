@@ -19,11 +19,10 @@ css
 
 /* حركة دخول بطاقات الخدمات */
 .service {
+  .service {
   position: relative;
   overflow: hidden;
-  animation: montyFadeUp 0.8s ease both;
-}
-
+  }
 .service:nth-child(2) {
   animation-delay: 0.12s;
 }

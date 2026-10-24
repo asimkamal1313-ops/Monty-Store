@@ -1071,8 +1071,6 @@ footer {
   .hero-art img,
   .button {
     transition: none;
-  }
-
 /* إصلاح زر واتساب على الجوال */
 @media (max-width: 768px) {
   .floating-whatsapp {

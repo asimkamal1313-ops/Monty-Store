@@ -1,54 +1,53 @@
-javascript
 const year = document.getElementById("year");
 
 if (year) {
-  year.textContent = new Date().getFullYear();
+year.textContent = new Date().getFullYear();
 }
 
 const form = document.getElementById("request-form");
 
 if (form) {
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
+form.addEventListener("submit", function (event) {
+event.preventDefault();
 
-    const data = new FormData(form);
+```
+const data = new FormData(form);
 
-    const name = (data.get("name") || "").toString().trim();
-    const service = (data.get("service") || "").toString().trim();
-    const device = (data.get("device") || "").toString().trim();
-    const serial = (data.get("serial") || "").toString().trim();
-    const details = (data.get("details") || "").toString().trim();
-    const number = (data.get("contactNumber") || "").toString();
+const name = (data.get("name") || "").toString().trim();
+const service = (data.get("service") || "").toString().trim();
+const device = (data.get("device") || "").toString().trim();
+const details = (data.get("details") || "").toString().trim();
+const number = (data.get("contactNumber") || "").toString().trim();
 
-    const allowedNumbers = [
-      "249928477105",
-      "249990053814"
-    ];
+const allowedNumbers = [
+  "249928477105",
+  "249990053814"
+];
 
-    if (!allowedNumbers.includes(number)) {
-      alert("يرجى اختيار رقم تواصل صحيح.");
-      return;
-    }
-
-    const message = [
-      "✨ طلب جديد - MONTY STORE",
-      "",
-      "👤 الاسم: " + name,
-      "🛠️ الخدمة: " + service,
-      "📱 موديل الجهاز: " + device,
-      "🔢 Serial Number: " + (serial || "لم يتم إدخاله"),
-      "📝 تفاصيل الطلب: " + details,
-      "",
-      "شكراً لاختياركم MONTY STORE ❤️"
-    ].join("\n");
-
-    const url =
-      "https://wa.me/" +
-      number +
-      "?text=" +
-      encodeURIComponent(message);
-
-    window.location.href = url;
-  });
+if (!allowedNumbers.includes(number)) {
+  alert("يرجى اختيار رقم واتساب صحيح.");
+  return;
 }
 
+const message = [
+  "✨ طلب جديد - MONTY STORE",
+  "",
+  "👤 الاسم: " + name,
+  "🛠️ الخدمة: " + service,
+  "📱 موديل الجهاز: " + device,
+  "📝 تفاصيل الطلب: " + details,
+  "",
+  "شكراً لاختياركم MONTY STORE ❤️"
+].join("\n");
+
+const url =
+  "https://wa.me/" +
+  number +
+  "?text=" +
+  encodeURIComponent(message);
+
+window.location.href = url;
+```
+
+});
+}

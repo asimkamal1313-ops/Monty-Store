@@ -1072,23 +1072,24 @@ footer {
   .button {
     transition: none;
   }
-}
+
 /* تحسين زر واتساب على الجوال */
 @media (max-width: 768px) {
   .floating-whatsapp {
-    transform: scale(0.78);
+    transform: scale(0.65);
     transform-origin: bottom left;
-    bottom: 18px;
-    left: 8px;
+    bottom: 10px;
+    left: -10px;
+    right: auto;
     z-index: 1000;
   }
 
   .reviews-section {
-    padding-top: 55px;
-    padding-bottom: 55px;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
 
   .review-card {
-    padding: 24px 20px;
+    padding: 20px 16px;
   }
 }

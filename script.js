@@ -20,9 +20,9 @@ if (form) {
     const number = (data.get("contactNumber") || "").toString().trim();
 
     const allowedNumbers = [
-      "249928477105",
-      "249990053814"
-    ];
+  "249928477105",
+  "249960518234"
+];
 
     if (!allowedNumbers.includes(number)) {
       alert("يرجى اختيار رقم واتساب صحيح.");

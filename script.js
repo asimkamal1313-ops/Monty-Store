@@ -50,3 +50,35 @@ if (form) {
     window.location.href = url;
   });
 }
+// حركة ظهور الأقسام عند التمرير
+const revealElements = document.querySelectorAll(
+  ".section-heading, .service, .steps > div, .contact-section > div, .contact-section form"
+);
+
+revealElements.forEach(function (element) {
+  element.classList.add("reveal");
+});
+
+if ("IntersectionObserver" in window) {
+  const revealObserver = new IntersectionObserver(
+    function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.15
+    }
+  );
+
+  revealElements.forEach(function (element) {
+    revealObserver.observe(element);
+  });
+} else {
+  revealElements.forEach(function (element) {
+    element.classList.add("visible");
+  });
+}

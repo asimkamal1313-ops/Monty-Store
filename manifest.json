@@ -10,9 +10,10 @@
   "theme_color": "#111111",
   "icons": [
     {
-      "src": "./monty-logo.jpg",
-      "sizes": "1254x1254",
-      "type": "image/jpeg"
+      "src": "./monty-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }

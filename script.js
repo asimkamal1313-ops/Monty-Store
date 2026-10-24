@@ -1,11 +1,6 @@
-
-const WHATSAPP_NUMBERS = [
-  "249928477105",
-  "249990053814",
-  "249960518234"
-];
-
+javascript
 const year = document.getElementById("year");
+
 if (year) {
   year.textContent = new Date().getFullYear();
 }
@@ -18,37 +13,42 @@ if (form) {
 
     const data = new FormData(form);
 
-    const message = [
-      "طلب جديد - MONTY STORE",
-      "الاسم: " + (data.get("name") || ""),
-      "الخدمة: " + (data.get("service") || ""),
-      "الجهاز: " + (data.get("device") || ""),
-      "التفاصيل: " + (data.get("details") || "")
-    ].join("\n");
+    const name = (data.get("name") || "").toString().trim();
+    const service = (data.get("service") || "").toString().trim();
+    const device = (data.get("device") || "").toString().trim();
+    const serial = (data.get("serial") || "").toString().trim();
+    const details = (data.get("details") || "").toString().trim();
+    const number = (data.get("contactNumber") || "").toString();
 
-    const choice = prompt(
-      "مرحباً بك في MONTY STORE\n\n" +
-      "اختر رقم واتساب للتواصل:\n" +
-      "1 - +249 928 477 105\n" +
-      "2 - +249 990 053 814\n" +
-      "3 - +249 960 518 234 (احتياطي)\n\n" +
-      "اكتب 1 أو 2 أو 3:",
-      "1"
-    );
+    const allowedNumbers = [
+      "249928477105",
+      "249990053814"
+    ];
 
-    if (!["1", "2", "3"].includes((choice || "").trim())) {
-      if (choice !== null) {
-        alert("اختيار غير صحيح. اختر 1 أو 2 أو 3.");
-      }
+    if (!allowedNumbers.includes(number)) {
+      alert("يرجى اختيار رقم تواصل صحيح.");
       return;
     }
 
-    const number = WHATSAPP_NUMBERS[Number(choice.trim()) - 1];
+    const message = [
+      "✨ طلب جديد - MONTY STORE",
+      "",
+      "👤 الاسم: " + name,
+      "🛠️ الخدمة: " + service,
+      "📱 موديل الجهاز: " + device,
+      "🔢 Serial Number: " + (serial || "لم يتم إدخاله"),
+      "📝 تفاصيل الطلب: " + details,
+      "",
+      "شكراً لاختياركم MONTY STORE ❤️"
+    ].join("\n");
 
     const url =
-      "https://wa.me/" + number +
-      "?text=" + encodeURIComponent(message);
+      "https://wa.me/" +
+      number +
+      "?text=" +
+      encodeURIComponent(message);
 
     window.location.href = url;
   });
 }
+

@@ -558,3 +558,51 @@ footer small {
     transform: none;
   }
   }
+/* زر واتساب العائم */
+.floating-whatsapp {
+  position: fixed;
+  bottom: 22px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: #25D366;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: whatsappFloat 3s ease-in-out infinite;
+}
+
+.floating-whatsapp strong {
+  font-size: 25px;
+  line-height: 1;
+}
+
+.floating-whatsapp:hover {
+  transform: translateY(-5px) scale(1.04);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+}
+
+@keyframes whatsappFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-whatsapp {
+    bottom: 16px;
+    right: 14px;
+    padding: 11px 15px;
+    font-size: 14px;
+  }
+}

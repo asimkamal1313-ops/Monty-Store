@@ -1,3 +1,8 @@
+
+/* =========================
+   تحديث السنة في تذييل الموقع
+========================= */
+
 const year = document.getElementById("year");
 
 if (year) {
@@ -33,6 +38,11 @@ if (form) {
       return;
     }
 
+    if (!name || !service || !device) {
+      alert("يرجى إدخال الاسم والخدمة وموديل الجهاز.");
+      return;
+    }
+
     const message = [
       "✨ طلب جديد - MONTY STORE",
       "",
@@ -40,7 +50,7 @@ if (form) {
       "🛠️ الخدمة: " + service,
       "📱 موديل الجهاز: " + device,
       "🔢 الرقم التسلسلي: " + (serial || "لم يتم إدخاله"),
-      "📝 تفاصيل الطلب: " + details,
+      "📝 تفاصيل الطلب: " + (details || "لا توجد تفاصيل إضافية"),
       "",
       "شكراً لاختياركم MONTY STORE ❤️"
     ].join("\n");
@@ -59,11 +69,13 @@ if (form) {
    إعدادات تقييمات العملاء
 ========================= */
 
-// رابط Google Apps Script المنشور
+// رابط Google Apps Script الجديد
 const REVIEWS_API =
-  "https://script.google.com/macros/s/AKfycbz7YB275K5VAHN1zK1PuwvKG3_AcfeLCHbs18u5Evv5HXMzx15DLVBRRZbuaKzhYVR-/exec";
+  "https://script.google.com/macros/s/AKfycbwZi6H_e11lvCuJz7FnDU94j-9P58yp67muaOTGyUyYe4Axe9Pz30JCj6re60BLGI-O5A/exec";
 
-/* تحميل التقييمات المعتمدة */
+/* =========================
+   تحميل التقييمات المعتمدة
+========================= */
 
 function loadApprovedReviews() {
   const container = document.getElementById("approved-reviews");
@@ -73,30 +85,40 @@ function loadApprovedReviews() {
   container.replaceChildren();
 
   const callbackName =
-    "montyReviewsCallback_" + Date.now();
+    "montyReviewsCallback_" +
+    Date.now() +
+    "_" +
+    Math.random().toString(36).slice(2);
 
   const script = document.createElement("script");
+  let finished = false;
 
   const timeout = window.setTimeout(function () {
-    if (window[callbackName]) {
-      delete window[callbackName];
-    }
+    finish();
 
-    script.remove();
-
-    if (!container.hasChildNodes()) {
-      container.textContent =
-        "تعذر تحميل التقييمات الآن. يرجى المحاولة لاحقًا.";
-    }
+    container.textContent =
+      "تعذر تحميل التقييمات الآن. يرجى المحاولة لاحقًا.";
   }, 12000);
 
-  window[callbackName] = function (result) {
+  function finish() {
+    if (finished) return;
+
+    finished = true;
     window.clearTimeout(timeout);
     delete window[callbackName];
     script.remove();
+  }
 
-    if (!result || result.ok !== true || !Array.isArray(result.reviews)) {
-      container.textContent = "تعذر تحميل التقييمات حاليًا.";
+  window[callbackName] = function (result) {
+    finish();
+
+    if (
+      !result ||
+      result.ok !== true ||
+      !Array.isArray(result.reviews)
+    ) {
+      container.textContent =
+        "تعذر تحميل التقييمات حاليًا.";
       return;
     }
 
@@ -109,25 +131,35 @@ function loadApprovedReviews() {
     }
 
     result.reviews.forEach(function (review) {
+      const rating = Number(review.rating);
+
+      if (
+        !Number.isInteger(rating) ||
+        rating < 1 ||
+        rating > 5
+      ) {
+        return;
+      }
+
       const card = document.createElement("article");
       card.className = "review-card";
 
       const heading = document.createElement("h3");
-      heading.textContent = review.name;
+      heading.textContent = review.name || "عميل MONTY STORE";
 
       const service = document.createElement("p");
       service.className = "review-service";
-      service.textContent = review.service;
+      service.textContent = review.service || "";
 
       const stars = document.createElement("p");
       stars.className = "review-stars";
       stars.textContent =
-        "★".repeat(Number(review.rating)) +
-        "☆".repeat(5 - Number(review.rating));
+        "★".repeat(rating) + "☆".repeat(5 - rating);
+      stars.setAttribute("aria-label", rating + " من 5");
 
       const comment = document.createElement("p");
       comment.className = "review-comment";
-      comment.textContent = review.comment;
+      comment.textContent = review.comment || "";
 
       const date = document.createElement("small");
       date.className = "review-date";
@@ -136,12 +168,16 @@ function loadApprovedReviews() {
       card.append(heading, service, stars, comment, date);
       container.appendChild(card);
     });
+
+    if (!container.hasChildNodes()) {
+      container.textContent =
+        "لا توجد تقييمات منشورة حتى الآن.";
+    }
   };
 
   script.onerror = function () {
-    window.clearTimeout(timeout);
-    delete window[callbackName];
-    script.remove();
+    finish();
+
     container.textContent =
       "تعذر الاتصال بخدمة التقييمات حاليًا.";
   };
@@ -156,7 +192,9 @@ function loadApprovedReviews() {
   document.head.appendChild(script);
 }
 
-/* إرسال تقييم العميل */
+/* =========================
+   إرسال تقييم العميل
+========================= */
 
 const reviewForm = document.getElementById("review-form");
 
@@ -182,35 +220,63 @@ if (reviewForm) {
       !review.comment ||
       !/^[1-5]$/.test(review.rating)
     ) {
-      status.textContent = "يرجى إكمال جميع حقول التقييم.";
+      if (status) {
+        status.textContent =
+          "يرجى إكمال جميع حقول التقييم.";
+      }
       return;
     }
 
-    status.textContent = "جارٍ إرسال تقييمك...";
-    submitButton.disabled = true;
+    if (status) {
+      status.textContent = "جارٍ إرسال تقييمك...";
+    }
+
+    if (submitButton) {
+      submitButton.disabled = true;
+    }
 
     try {
-      const body = new URLSearchParams(review);
+      const body = new URLSearchParams();
+      body.append("name", review.name);
+      body.append("service", review.service);
+      body.append("rating", review.rating);
+      body.append("comment", review.comment);
 
+      /*
+       * وضع no-cors لا يسمح للمتصفح بقراءة
+       * نتيجة الخادم، لذلك لا يمكن تأكيد الحفظ
+       * من هذه الاستجابة وحدها.
+       */
       await fetch(REVIEWS_API, {
         method: "POST",
         mode: "no-cors",
         body: body
       });
 
-      status.textContent =
-        "تم إرسال طلب التقييم. سيظهر بعد المراجعة والموافقة إذا وصل بنجاح.";
+      if (status) {
+        status.textContent =
+          "تم إرسال الطلب. تحقق من وصول التقييم إلى جدول البيانات؛ وسيظهر بعد المراجعة والموافقة.";
+      }
 
       reviewForm.reset();
 
     } catch (error) {
-      status.textContent =
-        "تعذر إرسال التقييم. تحقق من اتصال الإنترنت وحاول مجددًا.";
+      console.error("Monty review submission error:", error);
+
+      if (status) {
+        status.textContent =
+          "تعذر إرسال التقييم. تحقق من اتصال الإنترنت وحاول مجددًا.";
+      }
+
     } finally {
-      submitButton.disabled = false;
+      if (submitButton) {
+        submitButton.disabled = false;
+      }
     }
   });
 }
+
+/* تحميل التقييمات عند فتح الموقع */
 
 loadApprovedReviews();
 
@@ -219,7 +285,8 @@ loadApprovedReviews();
 ========================= */
 
 const revealElements = document.querySelectorAll(
-  ".section-heading, .service, .steps > div, .contact-section > div, .contact-section form"
+  ".section-heading, .service, .steps > div, " +
+  ".contact-section > div, .contact-section form"
 );
 
 revealElements.forEach(function (element) {
@@ -242,8 +309,9 @@ if ("IntersectionObserver" in window) {
   revealElements.forEach(function (element) {
     revealObserver.observe(element);
   });
+
 } else {
   revealElements.forEach(function (element) {
     element.classList.add("visible");
   });
-  }
+}

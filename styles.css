@@ -1100,3 +1100,136 @@ footer {
     font-size: 22px !important;
   }
 }
+
+  /* =========================
+   MONTY STORE - تقييمات العملاء
+========================= */
+
+#approved-reviews {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  margin: 24px 0 40px;
+}
+
+#approved-reviews > p {
+  grid-column: 1 / -1;
+  color: #b8c9df;
+  text-align: center;
+  padding: 22px;
+  background: #0b1426;
+  border: 1px solid rgba(8, 185, 255, 0.2);
+  border-radius: 14px;
+}
+
+.review-card {
+  padding: 22px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #101d33, #09111f);
+  border: 1px solid rgba(8, 185, 255, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+  overflow-wrap: anywhere;
+}
+
+.review-card h3 {
+  color: #ffffff;
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.review-service {
+  color: #08b9ff;
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+}
+
+.review-stars {
+  color: #ffd166;
+  font-size: 1.4rem;
+  letter-spacing: 3px;
+  margin: 8px 0 14px;
+}
+
+.review-comment {
+  color: #d7e2f0;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  margin: 0 0 14px;
+}
+
+.review-date {
+  color: #91a4bd;
+  font-size: 0.8rem;
+}
+
+.review-form {
+  max-width: 680px;
+  margin: 24px auto 40px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #0b1426;
+  border: 1px solid rgba(8, 185, 255, 0.25);
+  border-radius: 18px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+.review-form label {
+  color: #eaf6ff;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+.review-form input,
+.review-form select,
+.review-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  border: 1px solid #263b57;
+  border-radius: 10px;
+  background: #050914;
+  color: #ffffff;
+  font: inherit;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.review-form input:focus,
+.review-form select:focus,
+.review-form textarea:focus {
+  border-color: #08b9ff;
+}
+
+.review-form textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.review-form button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+#review-status {
+  min-height: 24px;
+  color: #08b9ff;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.review-form small {
+  color: #a9bad0;
+  line-height: 1.8;
+}
+
+@media (max-width: 600px) {
+  #approved-reviews {
+    grid-template-columns: 1fr;
+  }
+
+  .review-form {
+    padding: 18px;
+  }
+}

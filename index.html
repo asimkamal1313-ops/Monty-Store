@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
@@ -16,6 +17,7 @@
     <nav>
       <a href="#services">الخدمات</a>
       <a href="#steps">طريقة الطلب</a>
+      <a href="#reviews">آراء العملاء</a>
       <a href="#contact">تواصل معنا</a>
     </nav>
     <a class="nav-cta" href="#contact">اطلب خدمة</a>
@@ -162,20 +164,89 @@
     </section>
 
     <!-- قسم آراء العملاء -->
-    <section class="reviews-section" id="reviews">
+    <section class="reviews-section section" id="reviews">
       <div class="section-heading">
         <p class="eyebrow">آراء عملائنا</p>
         <h2>ثقتكم سر نجاحنا</h2>
         <p>رأيكم يهمنا، وتجربتكم هي أساس تطورنا.</p>
       </div>
 
-      <div class="reviews-grid">
-        <article class="review-card">
-          <div class="review-stars" aria-label="تقييم خمس نجوم">★★★★★</div>
-          <p>ما شاء الله، تعامل راقٍ وجميل، ودقة في المواعيد واحترافية في إتقان العمل.</p>
-          <h3>اسم العميل</h3>
-          <span>عميل MONTY STORE</span>
-        </article>
+      <!-- التقييمات المعتمدة فقط ستظهر هنا -->
+      <div id="approved-reviews" class="reviews-grid" aria-live="polite">
+        <p>يجري تحميل تقييمات العملاء...</p>
+      </div>
+
+      <div class="section-heading">
+        <h2>شاركنا تجربتك ⭐</h2>
+        <p>أرسل تقييمك، وسنراجعه قبل نشره على الموقع.</p>
+      </div>
+
+      <form id="review-form" class="review-form">
+        <label for="review-name">اسم العميل</label>
+        <input
+          id="review-name"
+          name="name"
+          type="text"
+          maxlength="100"
+          placeholder="اكتب اسمك"
+          required
+        >
+
+        <label for="review-service">الخدمة التي استخدمتها</label>
+        <select id="review-service" name="service" required>
+          <option value="">اختر الخدمة</option>
+          <option value="خدمات iCloud">خدمات iCloud</option>
+          <option value="برمجة الآيفون">برمجة الآيفون</option>
+          <option value="حلول السوفت وير">حلول السوفت وير</option>
+          <option value="تشخيص ومتابعة">تشخيص ومتابعة</option>
+          <option value="خدمة أخرى">خدمة أخرى</option>
+        </select>
+
+        <label for="review-rating">تقييمك</label>
+        <select id="review-rating" name="rating" required>
+          <option value="">اختر عدد النجوم</option>
+          <option value="5">⭐⭐⭐⭐⭐ - ممتاز</option>
+          <option value="4">⭐⭐⭐⭐ - جيد جدًا</option>
+          <option value="3">⭐⭐⭐ - جيد</option>
+          <option value="2">⭐⭐ - مقبول</option>
+          <option value="1">⭐ - يحتاج إلى تحسين</option>
+        </select>
+
+        <label for="review-comment">تعليقك</label>
+        <textarea
+          id="review-comment"
+          name="comment"
+          rows="4"
+          maxlength="1000"
+          placeholder="اكتب رأيك الحقيقي في الخدمة"
+          required
+        ></textarea>
+
+        <button class="button primary" id="review-submit" type="submit">
+          إرسال التقييم للمراجعة
+        </button>
+
+        <p id="review-status" role="status" aria-live="polite"></p>
+        <small>لن يظهر تقييمك للزوار إلا بعد مراجعته والموافقة عليه.</small>
+      </form>
+
+      <div class="section-heading">
+        <p>تفضل التواصل عبر واتساب؟ يمكنك إرسال رأيك مباشرة.</p>
+        <div class="hero-actions">
+          <a
+            class="button secondary"
+            href="https://wa.me/249928477105?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A5%D8%B1%D8%B3%D8%A7%D9%84%20%D8%AA%D9%82%D9%8A%D9%8A%D9%85%20%D9%84%D9%80%20MONTY%20STORE"
+            target="_blank"
+            rel="noopener noreferrer"
+          >التقييم عبر واتساب الأول</a>
+
+          <a
+            class="button secondary"
+            href="https://wa.me/249960518234?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A5%D8%B1%D8%B3%D8%A7%D9%84%20%D8%AA%D9%82%D9%8A%D9%8A%D9%85%20%D9%84%D9%80%20MONTY%20STORE"
+            target="_blank"
+            rel="noopener noreferrer"
+          >التقييم عبر واتساب الثاني</a>
+        </div>
       </div>
     </section>
   </main>

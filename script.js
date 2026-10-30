@@ -71,7 +71,7 @@ if (form) {
 
 // رابط Google Apps Script الجديد
 const REVIEWS_API =
-  "https://script.google.com/macros/s/AKfycbwZi6H_e11lvCuJz7FnDU94j-9P58yp67muaOTGyUyYe4Axe9Pz30JCj6re60BLGI-O5A/exec";
+  "https://script.google.com/macros/s/AKfycbwvgY3a7dUg2Jo2JfYI77RQSg2Fi4XedlRsASCdNll1ufVYy_DKf4CmIbv2A8YaDgg4Bg/exec";
 
 /* =========================
    تحميل التقييمات المعتمدة
@@ -237,15 +237,15 @@ if (reviewForm) {
 
     try {
       const body = new URLSearchParams();
+
       body.append("name", review.name);
       body.append("service", review.service);
       body.append("rating", review.rating);
       body.append("comment", review.comment);
 
       /*
-       * وضع no-cors لا يسمح للمتصفح بقراءة
-       * نتيجة الخادم، لذلك لا يمكن تأكيد الحفظ
-       * من هذه الاستجابة وحدها.
+       * no-cors لا يسمح بقراءة رد الخادم.
+       * لذلك لا يمكن تأكيد الحفظ من المتصفح وحده.
        */
       await fetch(REVIEWS_API, {
         method: "POST",
@@ -255,7 +255,7 @@ if (reviewForm) {
 
       if (status) {
         status.textContent =
-          "تم إرسال الطلب. تحقق من وصول التقييم إلى جدول البيانات؛ وسيظهر بعد المراجعة والموافقة.";
+          "تمت محاولة إرسال التقييم. يُرجى التأكد من وصوله إلى جدول البيانات. سيظهر بعد المراجعة والموافقة.";
       }
 
       reviewForm.reset();
@@ -276,7 +276,9 @@ if (reviewForm) {
   });
 }
 
-/* تحميل التقييمات عند فتح الموقع */
+/* =========================
+   تحميل التقييمات عند فتح الموقع
+========================= */
 
 loadApprovedReviews();
 

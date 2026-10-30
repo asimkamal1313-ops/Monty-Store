@@ -1,200 +1,229 @@
 
-/* =========================
-   تحديث السنة في تذييل الموقع
-========================= */
+// =====================================
+// MONTY STORE - MAIN SCRIPT
+// =====================================
 
-const year = document.getElementById("year");
+// أرقام واتساب
+const WHATSAPP_NUMBERS = {
+  "249928477105": "رقم التواصل الأول",
+  "249960518234": "رقم التواصل الثاني"
+};
 
-if (year) {
-  year.textContent = new Date().getFullYear();
+// روابط Google Apps Script
+const REVIEWS_API = "https://script.google.com/macros/s/AKfycbwvgY3a7dUg2Jo2JfYI77RQSg2Fi4XedlRsASCdNll1ufVYy_DKf4CmIbv2A8YaDgg4Bg/exec";
+
+const OFFERS_API = "https://script.google.com/macros/s/AKfycbxJktjkFaN8gVuRc2fBGhgVeCnzNpZmtkAucg5JLFKYW2nt_Fj-1LZERdvOLsu4LNz6/exec";
+
+// =====================================
+// السنة الحالية
+// =====================================
+
+const yearElement = document.getElementById("year");
+
+if (yearElement) {
+  yearElement.textContent = new Date().getFullYear();
 }
 
-/* =========================
-   نموذج طلب الخدمة عبر واتساب
-========================= */
+// =====================================
+// إرسال طلب الخدمة عبر واتساب
+// =====================================
 
-const form = document.getElementById("request-form");
+const requestForm = document.getElementById("request-form");
 
-if (form) {
-  form.addEventListener("submit", function (event) {
+if (requestForm) {
+  requestForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const data = new FormData(form);
+    const formData = new FormData(requestForm);
 
-    const name = (data.get("name") || "").toString().trim();
-    const service = (data.get("service") || "").toString().trim();
-    const device = (data.get("device") || "").toString().trim();
-    const serial = (data.get("serial") || "").toString().trim();
-    const details = (data.get("details") || "").toString().trim();
-    const number = (data.get("contactNumber") || "").toString().trim();
+    const name = formData.get("name")?.trim() || "";
+    const service = formData.get("service") || "";
+    const device = formData.get("device")?.trim() || "";
+    const serial = formData.get("serial")?.trim() || "غير مذكور";
+    const details = formData.get("details")?.trim() || "";
+    const contactNumber = formData.get("contactNumber");
 
-    const allowedNumbers = [
-      "249928477105",
-      "249960518234"
-    ];
-
-    if (!allowedNumbers.includes(number)) {
-      alert("يرجى اختيار رقم واتساب صحيح.");
+    if (!WHATSAPP_NUMBERS[contactNumber]) {
+      alert("يرجى اختيار رقم تواصل صحيح.");
       return;
     }
 
-    if (!name || !service || !device) {
-      alert("يرجى إدخال الاسم والخدمة وموديل الجهاز.");
-      return;
-    }
+    const message =
+`طلب جديد - MONTY STORE
 
-    const message = [
-      "✨ طلب جديد - MONTY STORE",
-      "",
-      "👤 الاسم: " + name,
-      "🛠️ الخدمة: " + service,
-      "📱 موديل الجهاز: " + device,
-      "🔢 الرقم التسلسلي: " + (serial || "لم يتم إدخاله"),
-      "📝 تفاصيل الطلب: " + (details || "لا توجد تفاصيل إضافية"),
-      "",
-      "شكراً لاختياركم MONTY STORE ❤️"
-    ].join("\n");
+الاسم: ${name}
+الخدمة: ${service}
+الجهاز: ${device}
+الرقم التسلسلي: ${serial}
 
-    const url =
+التفاصيل:
+${details}
+
+شكراً لثقتكم في MONTY STORE`;
+
+    const whatsappURL =
       "https://wa.me/" +
-      number +
+      contactNumber +
       "?text=" +
       encodeURIComponent(message);
 
-    window.location.href = url;
+    window.open(whatsappURL, "_blank");
   });
 }
 
-/* =========================
-   إعدادات تقييمات العملاء
-========================= */
+// =====================================
+// أداة تحميل البيانات JSONP
+// =====================================
 
-// رابط Google Apps Script الجديد
-const REVIEWS_API =
-  "https://script.google.com/macros/s/AKfycbwvgY3a7dUg2Jo2JfYI77RQSg2Fi4XedlRsASCdNll1ufVYy_DKf4CmIbv2A8YaDgg4Bg/exec";
+function loadJsonp(url, callback) {
+  const callbackName =
+    "montyCallback_" +
+    Date.now() +
+    "_" +
+    Math.floor(Math.random() * 100000);
 
-/* =========================
-   تحميل التقييمات المعتمدة
-========================= */
+  const script = document.createElement("script");
+
+  window[callbackName] = function (data) {
+    callback(data);
+
+    delete window[callbackName];
+    script.remove();
+  };
+
+  script.onerror = function () {
+    delete window[callbackName];
+    script.remove();
+    console.error("تعذر تحميل البيانات:", url);
+  };
+
+  const separator = url.includes("?") ? "&" : "?";
+
+  script.src =
+    url +
+    separator +
+    "callback=" +
+    encodeURIComponent(callbackName);
+
+  document.body.appendChild(script);
+}
+
+// =====================================
+// تحميل العروض من Google Sheets
+// =====================================
+
+function loadOffers() {
+  const container = document.getElementById("offers-container");
+
+  if (!container) return;
+
+  loadJsonp(OFFERS_API, function (data) {
+    container.innerHTML = "";
+
+    if (!data || !data.ok || !Array.isArray(data.offers)) {
+      container.textContent = "تعذر تحميل العروض حالياً.";
+      return;
+    }
+
+    if (data.offers.length === 0) {
+      container.textContent = "لا توجد عروض متاحة حالياً.";
+      return;
+    }
+
+    data.offers.forEach(function (offer) {
+      const card = document.createElement("article");
+      card.className = "service offer-card";
+
+      const title = document.createElement("h3");
+      title.textContent = offer.name || "عرض خاص";
+
+      const details = document.createElement("p");
+      details.textContent = offer.details || "";
+
+      card.appendChild(title);
+      card.appendChild(details);
+
+      if (offer.oldPrice) {
+        const oldPrice = document.createElement("p");
+        oldPrice.className = "offer-old-price";
+        oldPrice.textContent = "السعر قبل الخصم: " + offer.oldPrice;
+        card.appendChild(oldPrice);
+      }
+
+      if (offer.newPrice) {
+        const newPrice = document.createElement("p");
+        newPrice.className = "offer-new-price";
+        newPrice.textContent = "السعر بعد الخصم: " + offer.newPrice;
+        card.appendChild(newPrice);
+      }
+
+      const link = document.createElement("a");
+      link.href = "#contact";
+      link.textContent = "اطلب العرض ←";
+
+      card.appendChild(link);
+      container.appendChild(card);
+    });
+  });
+}
+
+// =====================================
+// تحميل التقييمات المعتمدة
+// =====================================
 
 function loadApprovedReviews() {
   const container = document.getElementById("approved-reviews");
 
   if (!container) return;
 
-  container.replaceChildren();
+  loadJsonp(REVIEWS_API + "?action=approved", function (data) {
+    container.innerHTML = "";
 
-  const callbackName =
-    "montyReviewsCallback_" +
-    Date.now() +
-    "_" +
-    Math.random().toString(36).slice(2);
+    const reviews = Array.isArray(data)
+      ? data
+      : data && Array.isArray(data.reviews)
+        ? data.reviews
+        : [];
 
-  const script = document.createElement("script");
-  let finished = false;
-
-  const timeout = window.setTimeout(function () {
-    finish();
-
-    container.textContent =
-      "تعذر تحميل التقييمات الآن. يرجى المحاولة لاحقًا.";
-  }, 12000);
-
-  function finish() {
-    if (finished) return;
-
-    finished = true;
-    window.clearTimeout(timeout);
-    delete window[callbackName];
-    script.remove();
-  }
-
-  window[callbackName] = function (result) {
-    finish();
-
-    if (
-      !result ||
-      result.ok !== true ||
-      !Array.isArray(result.reviews)
-    ) {
-      container.textContent =
-        "تعذر تحميل التقييمات حاليًا.";
+    if (reviews.length === 0) {
+      container.textContent = "لا توجد تقييمات منشورة حالياً.";
       return;
     }
 
-    container.replaceChildren();
-
-    if (result.reviews.length === 0) {
-      container.textContent =
-        "لا توجد تقييمات منشورة حتى الآن. كن أول من يشارك تجربته!";
-      return;
-    }
-
-    result.reviews.forEach(function (review) {
-      const rating = Number(review.rating);
-
-      if (
-        !Number.isInteger(rating) ||
-        rating < 1 ||
-        rating > 5
-      ) {
-        return;
-      }
-
+    reviews.forEach(function (review) {
       const card = document.createElement("article");
-      card.className = "review-card";
+      card.className = "service review-card";
 
-      const heading = document.createElement("h3");
-      heading.textContent = review.name || "عميل MONTY STORE";
+      const name = document.createElement("h3");
+      name.textContent = review.name || review.customer || "عميل MONTY STORE";
 
       const service = document.createElement("p");
-      service.className = "review-service";
       service.textContent = review.service || "";
 
-      const stars = document.createElement("p");
-      stars.className = "review-stars";
-      stars.textContent =
-        "★".repeat(rating) + "☆".repeat(5 - rating);
-      stars.setAttribute("aria-label", rating + " من 5");
+      const rating = document.createElement("p");
+      const stars = Math.max(
+        0,
+        Math.min(5, Number(review.rating || 0))
+      );
+
+      rating.textContent = "⭐".repeat(stars);
 
       const comment = document.createElement("p");
-      comment.className = "review-comment";
       comment.textContent = review.comment || "";
 
-      const date = document.createElement("small");
-      date.className = "review-date";
-      date.textContent = review.date || "";
+      card.appendChild(name);
+      card.appendChild(service);
+      card.appendChild(rating);
+      card.appendChild(comment);
 
-      card.append(heading, service, stars, comment, date);
       container.appendChild(card);
     });
-
-    if (!container.hasChildNodes()) {
-      container.textContent =
-        "لا توجد تقييمات منشورة حتى الآن.";
-    }
-  };
-
-  script.onerror = function () {
-    finish();
-
-    container.textContent =
-      "تعذر الاتصال بخدمة التقييمات حاليًا.";
-  };
-
-  script.src =
-    REVIEWS_API +
-    "?action=approved&callback=" +
-    encodeURIComponent(callbackName) +
-    "&t=" +
-    Date.now();
-
-  document.head.appendChild(script);
+  });
 }
 
-/* =========================
-   إرسال تقييم العميل
-========================= */
+// =====================================
+// إرسال تقييم جديد
+// =====================================
 
 const reviewForm = document.getElementById("review-form");
 
@@ -205,99 +234,54 @@ if (reviewForm) {
     const status = document.getElementById("review-status");
     const submitButton = document.getElementById("review-submit");
 
-    const data = new FormData(reviewForm);
+    const formData = new FormData(reviewForm);
 
     const review = {
-      name: (data.get("name") || "").toString().trim(),
-      service: (data.get("service") || "").toString().trim(),
-      rating: (data.get("rating") || "").toString().trim(),
-      comment: (data.get("comment") || "").toString().trim()
+      name: formData.get("name")?.trim() || "",
+      service: formData.get("service") || "",
+      rating: formData.get("rating") || "",
+      comment: formData.get("comment")?.trim() || ""
     };
 
-    if (
-      !review.name ||
-      !review.service ||
-      !review.comment ||
-      !/^[1-5]$/.test(review.rating)
-    ) {
-      if (status) {
-        status.textContent =
-          "يرجى إكمال جميع حقول التقييم.";
-      }
+    if (!review.name || !review.service || !review.rating || !review.comment) {
+      status.textContent = "يرجى إكمال جميع بيانات التقييم.";
       return;
     }
 
-    if (status) {
-      status.textContent = "جارٍ إرسال تقييمك...";
-    }
-
-    if (submitButton) {
-      submitButton.disabled = true;
-    }
+    submitButton.disabled = true;
+    status.textContent = "جارٍ إرسال تقييمك...";
 
     try {
-      const body = new URLSearchParams();
-
-      body.append("name", review.name);
-      body.append("service", review.service);
-      body.append("rating", review.rating);
-      body.append("comment", review.comment);
-
-      /*
-       * no-cors لا يسمح بقراءة رد الخادم.
-       * لذلك لا يمكن تأكيد الحفظ من المتصفح وحده.
-       */
       await fetch(REVIEWS_API, {
         method: "POST",
         mode: "no-cors",
-        body: body
+        body: JSON.stringify(review)
       });
 
-      if (status) {
-        status.textContent =
-          "تمت محاولة إرسال التقييم. يُرجى التأكد من وصوله إلى جدول البيانات. سيظهر بعد المراجعة والموافقة.";
-      }
+      status.textContent =
+        "تم إرسال تقييمك. سيظهر بعد المراجعة والموافقة عليه.";
 
       reviewForm.reset();
 
     } catch (error) {
-      console.error("Monty review submission error:", error);
+      status.textContent =
+        "تعذر إرسال التقييم. حاول مرة أخرى أو تواصل معنا عبر واتساب.";
 
-      if (status) {
-        status.textContent =
-          "تعذر إرسال التقييم. تحقق من اتصال الإنترنت وحاول مجددًا.";
-      }
+      console.error(error);
 
     } finally {
-      if (submitButton) {
-        submitButton.disabled = false;
-      }
+      submitButton.disabled = false;
     }
   });
 }
 
-/* =========================
-   تحميل التقييمات عند فتح الموقع
-========================= */
-
-loadApprovedReviews();
-
-/* =========================
-   ظهور الأقسام عند التمرير
-========================= */
-
-const revealElements = document.querySelectorAll(
-  ".section-heading, .service, .steps > div, " +
-  ".contact-section > div, .contact-section form"
-);
-
-revealElements.forEach(function (element) {
-  element.classList.add("reveal");
-});
+// =====================================
+// تأثير ظهور العناصر عند التمرير
+// =====================================
 
 if ("IntersectionObserver" in window) {
-  const revealObserver = new IntersectionObserver(
-    function (entries, observer) {
+  const observer = new IntersectionObserver(
+    function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add("visible");
@@ -305,15 +289,21 @@ if ("IntersectionObserver" in window) {
         }
       });
     },
-    { threshold: 0.15 }
+    { threshold: 0.12 }
   );
 
-  revealElements.forEach(function (element) {
-    revealObserver.observe(element);
-  });
-
-} else {
-  revealElements.forEach(function (element) {
-    element.classList.add("visible");
-  });
+  document
+    .querySelectorAll(".service, .steps > div, .section-heading")
+    .forEach(function (element) {
+      observer.observe(element);
+    });
 }
+
+// =====================================
+// تشغيل الأنظمة
+// =====================================
+
+document.addEventListener("DOMContentLoaded", function () {
+  loadOffers();
+  loadApprovedReviews();
+});

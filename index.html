@@ -11,11 +11,11 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
   <header class="topbar">
     <a class="brand" href="#home">MONTY <span>STORE</span></a>
     <nav>
       <a href="#services">الخدمات</a>
+      <a href="#offers">العروض</a>
       <a href="#steps">طريقة الطلب</a>
       <a href="#reviews">آراء العملاء</a>
       <a href="#contact">تواصل معنا</a>
@@ -33,165 +33,64 @@
           <a class="button primary" href="#services">استكشف الخدمات</a>
           <a class="button secondary" href="#contact">تواصل معنا</a>
         </div>
-        <div class="trust">
-          <span>●</span> وضوح في الخدمة
-          <span>●</span> متابعة للطلب
-          <span>●</span> دعم مباشر
-        </div>
+        <div class="trust"><span>●</span> وضوح في الخدمة <span>●</span> متابعة للطلب <span>●</span> دعم مباشر</div>
       </div>
-
-      <div class="hero-art">
-        <div class="ring"></div>
-        <img src="monty-logo.jpg" alt="شعار MONTY STORE">
-      </div>
+      <div class="hero-art"><div class="ring"></div><img src="monty-logo.jpg" alt="شعار MONTY STORE"></div>
     </section>
 
     <section class="section" id="services">
       <div class="section-heading">
-        <p class="eyebrow">ماذا نقدم؟</p>
-        <h2>خدماتنا</h2>
+        <p class="eyebrow">ماذا نقدم؟</p><h2>خدماتنا</h2>
         <p>اختر الخدمة المناسبة وأرسل تفاصيل طلبك.</p>
       </div>
-
       <div class="services">
-        <article class="service">
-          <div class="service-icon"></div>
-          <h3>خدمات iCloud</h3>
-          <p>مساعدة في استعادة الوصول للحسابات والأجهزة وفق الإجراءات الرسمية وإثبات الملكية.</p>
-          <a href="#contact">اطلب الخدمة ←</a>
-        </article>
+        <article class="service"><div class="service-icon"></div><h3>خدمات iCloud</h3><p>مساعدة في استعادة الوصول للحسابات والأجهزة وفق الإجراءات الرسمية وإثبات الملكية.</p><a href="#contact">اطلب الخدمة ←</a></article>
+        <article class="service"><div class="service-icon">&lt;/&gt;</div><h3>برمجة الآيفون</h3><p>تشخيص مشكلات النظام وتقديم حلول برمجية مناسبة لجهازك.</p><a href="#contact">اطلب الخدمة ←</a></article>
+        <article class="service"><div class="service-icon">⚙</div><h3>حلول السوفت وير</h3><p>مساعدة في تحديث النظام وحل الأعطال البرمجية الشائعة.</p><a href="#contact">اطلب الخدمة ←</a></article>
+        <article class="service"><div class="service-icon">⌁</div><h3>تشخيص ومتابعة</h3><p>أرسل موديل الجهاز ووصف المشكلة لمعرفة الخطوات المناسبة قبل بدء العمل.</p><a href="#contact">اطلب الخدمة ←</a></article>
+      </div>
+    </section>
 
-        <article class="service">
-          <div class="service-icon">&lt;/&gt;</div>
-          <h3>برمجة الآيفون</h3>
-          <p>تشخيص مشكلات النظام وتقديم حلول برمجية مناسبة لجهازك.</p>
-          <a href="#contact">اطلب الخدمة ←</a>
-        </article>
-
-        <article class="service">
-          <div class="service-icon">⚙</div>
-          <h3>حلول السوفت وير</h3>
-          <p>مساعدة في تحديث النظام وحل الأعطال البرمجية الشائعة.</p>
-          <a href="#contact">اطلب الخدمة ←</a>
-        </article>
-
-        <article class="service">
-          <div class="service-icon">⌁</div>
-          <h3>تشخيص ومتابعة</h3>
-          <p>أرسل موديل الجهاز ووصف المشكلة لمعرفة الخطوات المناسبة قبل بدء العمل.</p>
-          <a href="#contact">اطلب الخدمة ←</a>
-        </article>
+    <section class="section" id="offers">
+      <div class="section-heading">
+        <p class="eyebrow">عروض MONTY STORE</p><h2>عروضنا الحصرية</h2>
+        <p>استفد من عروضنا المميزة والأسعار الخاصة.</p>
+      </div>
+      <div class="services" id="offers-container" aria-live="polite">
+        <p>يجري تحميل العروض...</p>
       </div>
     </section>
 
     <section class="steps-section" id="steps">
-      <div class="section-heading">
-        <p class="eyebrow">بكل بساطة</p>
-        <h2>كيف تطلب الخدمة؟</h2>
-      </div>
-
+      <div class="section-heading"><p class="eyebrow">بكل بساطة</p><h2>كيف تطلب الخدمة؟</h2></div>
       <div class="steps">
-        <div>
-          <b>01</b>
-          <h3>اختر الخدمة</h3>
-          <p>حدد نوع المشكلة أو الخدمة المطلوبة.</p>
-        </div>
-        <div>
-          <b>02</b>
-          <h3>أرسل التفاصيل</h3>
-          <p>أرسل موديل الجهاز والرقم التسلسلي إن توفر.</p>
-        </div>
-        <div>
-          <b>03</b>
-          <h3>تابع طلبك</h3>
-          <p>نتواصل معك لتأكيد التفاصيل والخطوات.</p>
-        </div>
+        <div><b>01</b><h3>اختر الخدمة</h3><p>حدد نوع المشكلة أو الخدمة المطلوبة.</p></div>
+        <div><b>02</b><h3>أرسل التفاصيل</h3><p>أرسل موديل الجهاز والرقم التسلسلي إن توفر.</p></div>
+        <div><b>03</b><h3>تابع طلبك</h3><p>نتواصل معك لتأكيد التفاصيل والخطوات.</p></div>
       </div>
     </section>
 
     <section class="contact-section" id="contact">
-      <div>
-        <p class="eyebrow">نحن هنا للمساعدة</p>
-        <h2>جاهز تطلب خدمتك؟</h2>
-        <p>املأ البيانات واختر رقم التواصل، وسيتم تجهيز رسالة طلب عبر واتساب.</p>
-      </div>
-
+      <div><p class="eyebrow">نحن هنا للمساعدة</p><h2>جاهز تطلب خدمتك؟</h2><p>املأ البيانات واختر رقم التواصل، وسيتم تجهيز رسالة طلب عبر واتساب.</p></div>
       <form id="request-form">
-        <label>
-          الاسم
-          <input name="name" required placeholder="اسمك">
-        </label>
-
-        <label>
-          نوع الخدمة
-          <select name="service" required>
-            <option>خدمات iCloud</option>
-            <option>برمجة الآيفون</option>
-            <option>حلول السوفت وير</option>
-            <option>تشخيص ومتابعة</option>
-          </select>
-        </label>
-
-        <label>
-          موديل الجهاز
-          <input name="device" required placeholder="مثال: iPhone 13">
-        </label>
-
-        <label>
-          الرقم التسلسلي (Serial Number)
-          <input name="serial" placeholder="أدخل الرقم التسلسلي إن توفر">
-        </label>
-
-        <label>
-          تفاصيل المشكلة أو الاستفسار
-          <textarea name="details" required rows="4" placeholder="اكتب تفاصيل طلبك"></textarea>
-        </label>
-
-        <label>
-          اختر رقم التواصل عبر واتساب
-          <select name="contactNumber" required>
-            <option value="249928477105">رقم التواصل الأول</option>
-            <option value="249960518234">رقم التواصل الثاني</option>
-          </select>
-        </label>
-
-        <button class="button primary" type="submit">
-          إرسال الطلب عبر واتساب
-        </button>
-
+        <label>الاسم<input name="name" required placeholder="اسمك"></label>
+        <label>نوع الخدمة<select name="service" required><option>خدمات iCloud</option><option>برمجة الآيفون</option><option>حلول السوفت وير</option><option>تشخيص ومتابعة</option></select></label>
+        <label>موديل الجهاز<input name="device" required placeholder="مثال: iPhone 13"></label>
+        <label>الرقم التسلسلي (Serial Number)<input name="serial" placeholder="أدخل الرقم التسلسلي إن توفر"></label>
+        <label>تفاصيل المشكلة أو الاستفسار<textarea name="details" required rows="4" placeholder="اكتب تفاصيل طلبك"></textarea></label>
+        <label>اختر رقم التواصل عبر واتساب<select name="contactNumber" required><option value="249928477105">رقم التواصل الأول</option><option value="249960518234">رقم التواصل الثاني</option></select></label>
+        <button class="button primary" type="submit">إرسال الطلب عبر واتساب</button>
         <small>سيتم فتح واتساب لتراجع الرسالة وترسلها بنفسك.</small>
       </form>
     </section>
 
-    <!-- قسم آراء العملاء -->
     <section class="reviews-section section" id="reviews">
-      <div class="section-heading">
-        <p class="eyebrow">آراء عملائنا</p>
-        <h2>ثقتكم سر نجاحنا</h2>
-        <p>رأيكم يهمنا، وتجربتكم هي أساس تطورنا.</p>
-      </div>
-
-      <!-- التقييمات المعتمدة فقط ستظهر هنا -->
-      <div id="approved-reviews" class="reviews-grid" aria-live="polite">
-        <p>يجري تحميل تقييمات العملاء...</p>
-      </div>
-
-      <div class="section-heading">
-        <h2>شاركنا تجربتك ⭐</h2>
-        <p>أرسل تقييمك، وسنراجعه قبل نشره على الموقع.</p>
-      </div>
-
+      <div class="section-heading"><p class="eyebrow">آراء عملائنا</p><h2>ثقتكم سر نجاحنا</h2><p>رأيكم يهمنا، وتجربتكم هي أساس تطورنا.</p></div>
+      <div id="approved-reviews" class="reviews-grid" aria-live="polite"><p>يجري تحميل تقييمات العملاء...</p></div>
+      <div class="section-heading"><h2>شاركنا تجربتك ⭐</h2><p>أرسل تقييمك، وسنراجعه قبل نشره على الموقع.</p></div>
       <form id="review-form" class="review-form">
         <label for="review-name">اسم العميل</label>
-        <input
-          id="review-name"
-          name="name"
-          type="text"
-          maxlength="100"
-          placeholder="اكتب اسمك"
-          required
-        >
-
+        <input id="review-name" name="name" type="text" maxlength="100" placeholder="اكتب اسمك" required>
         <label for="review-service">الخدمة التي استخدمتها</label>
         <select id="review-service" name="service" required>
           <option value="">اختر الخدمة</option>
@@ -201,7 +100,6 @@
           <option value="تشخيص ومتابعة">تشخيص ومتابعة</option>
           <option value="خدمة أخرى">خدمة أخرى</option>
         </select>
-
         <label for="review-rating">تقييمك</label>
         <select id="review-rating" name="rating" required>
           <option value="">اختر عدد النجوم</option>
@@ -211,63 +109,25 @@
           <option value="2">⭐⭐ - مقبول</option>
           <option value="1">⭐ - يحتاج إلى تحسين</option>
         </select>
-
         <label for="review-comment">تعليقك</label>
-        <textarea
-          id="review-comment"
-          name="comment"
-          rows="4"
-          maxlength="1000"
-          placeholder="اكتب رأيك الحقيقي في الخدمة"
-          required
-        ></textarea>
-
-        <button class="button primary" id="review-submit" type="submit">
-          إرسال التقييم للمراجعة
-        </button>
-
+        <textarea id="review-comment" name="comment" rows="4" maxlength="1000" placeholder="اكتب رأيك الحقيقي في الخدمة" required></textarea>
+        <button class="button primary" id="review-submit" type="submit">إرسال التقييم للمراجعة</button>
         <p id="review-status" role="status" aria-live="polite"></p>
         <small>لن يظهر تقييمك للزوار إلا بعد مراجعته والموافقة عليه.</small>
       </form>
-
       <div class="section-heading">
         <p>تفضل التواصل عبر واتساب؟ يمكنك إرسال رأيك مباشرة.</p>
         <div class="hero-actions">
-          <a
-            class="button secondary"
-            href="https://wa.me/249928477105?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A5%D8%B1%D8%B3%D8%A7%D9%84%20%D8%AA%D9%82%D9%8A%D9%8A%D9%85%20%D9%84%D9%80%20MONTY%20STORE"
-            target="_blank"
-            rel="noopener noreferrer"
-          >التقييم عبر واتساب الأول</a>
-
-          <a
-            class="button secondary"
-            href="https://wa.me/249960518234?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A5%D8%B1%D8%B3%D8%A7%D9%84%20%D8%AA%D9%82%D9%8A%D9%8A%D9%85%20%D9%84%D9%80%20MONTY%20STORE"
-            target="_blank"
-            rel="noopener noreferrer"
-          >التقييم عبر واتساب الثاني</a>
+          <a class="button secondary" href="https://wa.me/249928477105?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A5%D8%B1%D8%B3%D8%A7%D9%84%20%D8%AA%D9%82%D9%8A%D9%8A%D9%85%20%D9%84%D9%80%20MONTY%20STORE" target="_blank" rel="noopener noreferrer">التقييم عبر واتساب الأول</a>
+          <a class="button secondary" href="https://wa.me/249960518234?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A5%D8%B1%D8%B3%D8%A7%D9%84%20%D8%AA%D9%82%D9%8A%D9%8A%D9%85%20%D9%84%D9%80%20MONTY%20STORE" target="_blank" rel="noopener noreferrer">التقييم عبر واتساب الثاني</a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <a class="brand" href="#home">MONTY <span>STORE</span></a>
-    <p>ثقتك .. مسؤوليتنا</p>
-    <small>© <span id="year"></span> MONTY STORE</small>
-  </footer>
+  <footer><a class="brand" href="#home">MONTY <span>STORE</span></a><p>ثقتك .. مسؤوليتنا</p><small>© <span id="year"></span> MONTY STORE</small></footer>
 
-  <a
-    class="floating-whatsapp"
-    href="https://wa.me/249928477105"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="تواصل معنا عبر واتساب"
-  >
-    <span>واتساب</span>
-    <strong>☏</strong>
-  </a>
-
+  <a class="floating-whatsapp" href="https://wa.me/249928477105" target="_blank" rel="noopener noreferrer" aria-label="تواصل معنا عبر واتساب"><span>واتساب</span><strong>☏</strong></a>
   <script src="script.js"></script>
 </body>
 </html>
